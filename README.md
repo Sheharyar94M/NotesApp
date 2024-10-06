@@ -1,7 +1,5 @@
 # Notes app
 
-![App icon](app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png)
-
 This is a simple Android app for taking notes, like there have been tens of thousands before.
 The app has Material UI, was built following MVVM architecture, uses Dagger and some Jetpack
 components. Download is available on:
