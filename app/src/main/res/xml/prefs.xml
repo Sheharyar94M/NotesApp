@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright 2021 Nicolas Maltais
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <PreferenceCategory app:title="@string/pref_group_appearance">
+
+        <DropDownPreference
+            app:defaultValue="system"
+            app:entries="@array/pref_theme_entries"
+            app:entryValues="@array/pref_theme_values"
+            app:icon="@drawable/ic_theme"
+            app:key="theme"
+            app:title="@string/pref_theme"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            app:key="dynamic_colors"
+            app:title="@string/pref_dynamic_colors"
+            />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            app:key="strikethrough_checked"
+            app:title="@string/pref_strikethrough_checked"
+            />
+
+        <SeekBarPreference
+            android:defaultValue="2"
+            android:max="10"
+            app:key="preview_labels"
+            app:min="0"
+            app:showSeekBarValue="true"
+            app:title="@string/pref_preview_labels"
+            />
+
+        <DropDownPreference
+            app:defaultValue="none"
+            app:entries="@array/pref_shown_date_entries"
+            app:entryValues="@array/pref_shown_date_values"
+            app:key="shown_date"
+            app:title="@string/pref_shown_date"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <Preference
+            android:summary="@string/pref_preview_lines_summary"
+            app:key="preview_lines"
+            app:title="@string/pref_preview_lines"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_group_behavior">
+
+        <DropDownPreference
+            app:defaultValue="archive"
+            app:entries="@array/pref_swipe_action_entries"
+            app:entryValues="@array/pref_swipe_action_values"
+            app:key="swipe_action_left"
+            app:title="@string/pref_behavior_swipe_action_left"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <DropDownPreference
+            app:defaultValue="archive"
+            app:entries="@array/pref_swipe_action_entries"
+            app:entryValues="@array/pref_swipe_action_values"
+            app:key="swipe_action_right"
+            app:title="@string/pref_behavior_swipe_action_right"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <DropDownPreference
+            app:entries="@array/pref_deleted_notes_timeout_entries"
+            app:entryValues="@array/pref_deleted_notes_timeout_values"
+            app:key="deleted_timeout"
+            app:title="@string/pref_deleted_notes_timeout_title"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="move_checked_to_bottom"
+            app:title="@string/pref_behavior_move_checked"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_group_data">
+
+        <Preference
+            app:icon="@drawable/ic_export"
+            app:key="export_data"
+            app:summary="@string/pref_data_export_summary"
+            app:title="@string/pref_data_export"
+            />
+
+        <SwitchPreferenceCompat
+            android:title="@string/pref_data_encrypted_export"
+            app:defaultValue="false"
+            app:key="encrypted_export"
+            app:summary="@string/pref_data_encrypted_export_summary"
+            />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="auto_export"
+            app:summary="@string/pref_data_auto_export_summary"
+            app:title="@string/pref_data_auto_export"
+            />
+
+        <Preference
+            app:icon="@drawable/ic_import"
+            app:key="import_data"
+            app:summary="@string/pref_data_import_summary"
+            app:title="@string/pref_data_import"
+            />
+
+        <Preference
+            app:key="clear_data"
+            app:title="@string/pref_data_clear"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_group_about">
+
+        <Preference
+            app:icon="@drawable/ic_code"
+            app:key="view_source"
+            app:title="@string/pref_about_view_source"
+            >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/view_source_url"
+                />
+        </Preference>
+
+        <Preference
+            app:key="view_licenses"
+            app:title="@string/pref_about_view_licenses"
+            />
+
+        <Preference
+            app:key="version"
+            app:title="@string/pref_about_version"
+            tools:summary="1.0.0"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

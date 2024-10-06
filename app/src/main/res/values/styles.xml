@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright 2022 Nicolas Maltais
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="NoteTitleStyle">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textAppearance">?textAppearanceSubtitle1</item>
+        <item name="android:textDirection">anyRtl</item>
+    </style>
+
+    <style name="NoteDateStyle">
+        <item name="android:textAppearance">?textAppearanceCaption</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/material_on_surface_emphasis_medium</item>
+    </style>
+
+    <style name="NoteListItemCardStyle">
+        <item name="cardBackgroundColor">?colorSurface</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="strokeColor">@color/color_note_card_stroke</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="android:checkable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="NoteReminderChipStyleBase">
+        <item name="android:textAppearance">?textAppearanceCaption</item>
+        <item name="android:textColor">@color/item_note_reminder_fg_color</item>
+        <item name="chipBackgroundColor">@null</item>
+        <item name="chipStrokeColor">@color/item_note_reminder_stroke_color</item>
+        <item name="chipStrokeWidth">0.7dp</item>
+        <item name="chipIconSize">16dp</item>
+        <item name="chipStartPadding">8dp</item>
+        <item name="chipIconTint">@color/item_note_reminder_fg_color</item>
+    </style>
+
+    <style name="NoteReminderChipStyle" parent="NoteReminderChipStyleBase">
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="chipMinHeight">28dp</item>
+        <item name="chipMinTouchTargetSize">0dp</item>
+    </style>
+
+    <style name="NoteReminderEditChipStyle" parent="NoteReminderChipStyleBase" />
+
+    <style name="NoteLabelChipStyle">
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:textAppearance">?textAppearanceCaption</item>
+        <item name="android:ellipsize">end</item>
+        <item name="chipBackgroundColor">@null</item>
+        <item name="chipMinHeight">28dp</item>
+        <item name="chipStrokeColor">@color/material_on_surface_emphasis_medium</item>
+        <item name="chipStrokeWidth">0.7dp</item>
+        <item name="chipMinTouchTargetSize">0dp</item>
+    </style>
+
+    <style name="NoteActionButtonStyle" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/material_on_surface_emphasis_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="iconTint">@color/material_on_surface_emphasis_medium</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <style name="NoteSwipeIconStyle">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:tintMode">src_in</item>
+        <item name="tint">@color/material_on_background_emphasis_medium</item>
+    </style>
+
+    <style name="PlaceholderImageViewStyle">
+        <item name="android:layout_width">144dp</item>
+        <item name="android:layout_height">144dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:background">@drawable/shape_circle</item>
+        <item name="android:backgroundTint">@color/color_bg_placeholder</item>
+        <item name="tint">@color/material_on_surface_emphasis_medium</item>
+        <item name="tintMode">src_in</item>
+    </style>
+
+    <style name="PlaceholderTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">64dp</item>
+        <item name="android:layout_marginEnd">64dp</item>
+        <item name="android:maxWidth">300dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="ActionModeTitleStyle" parent="TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textColor">?colorControlNormal</item>
+    </style>
+
+    <style name="BoxInputLayoutStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor" tools:ignore="PrivateResource">@color/mtrl_filled_background_color</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="BoxInputStyle">
+        <item name="android:textAppearance">?textAppearanceBody1</item>
+        <item name="android:gravity">center</item>
+        <item name="boxStrokeColor">@null</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:inputType">none|textNoSuggestions</item>
+    </style>
+
+    <style name="MaterialAlertDialogStyle" parent="MaterialAlertDialog.Material3">
+        <!-- Material Components set 80dp vertical inset by default. Unusable! -->
+        <item name="backgroundInsetTop">16dp</item>
+        <item name="backgroundInsetBottom">16dp</item>
+    </style>
+
+    <style name="ActionModeStyle" parent="Widget.Material3.ActionMode">
+        <item name="titleTextStyle">@style/ActionModeTitleStyle</item>
+        <item name="background">?colorSurfaceVariant</item>
+    </style>
+
+    <style name="SortDialogOptionStyle" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <style name="Widget.App.Snackbar" parent="Widget.Material3.Snackbar">
+        <item name="animationMode">slide</item>
+    </style>
+
+    <style name="Preference.SwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat.Material"
+        tools:ignore="ResourceCycle">
+        <item name="widgetLayout">@layout/item_material3_switch</item>
+    </style>
+
+</resources>

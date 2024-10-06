@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright 2021 Nicolas Maltais
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/fragment_home"
+    >
+
+    <include app:graph="@navigation/aboutlibs_navigation" />
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.maltaisn.notes.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_note"
+        >
+        <action
+            android:id="@+id/action_home_to_search"
+            app:destination="@id/fragment_search"
+            />
+        <action
+            android:id="@+id/action_home_to_settings"
+            app:destination="@id/fragment_settings"
+            />
+        <action
+            android:id="@+id/action_home_to_label_edit"
+            app:destination="@id/dialog_label_edit"
+            />
+        <action
+            android:id="@+id/action_home_to_sort"
+            app:destination="@id/dialog_sort"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.maltaisn.notes.ui.search.SearchFragment"
+        tools:layout="@layout/fragment_note"
+        />
+
+    <fragment
+        android:id="@+id/fragment_edit"
+        android:name="com.maltaisn.notes.ui.edit.EditFragment"
+        tools:layout="@layout/fragment_edit"
+        >
+        <argument
+            android:name="noteId"
+            android:defaultValue="0L"
+            app:argType="long"
+            />
+        <argument
+            android:name="labelId"
+            android:defaultValue="0L"
+            app:argType="long"
+            />
+        <argument
+            android:name="changeReminder"
+            android:defaultValue="false"
+            app:argType="boolean"
+            />
+        <argument
+            android:name="type"
+            android:defaultValue="0"
+            app:argType="integer"
+            />
+        <argument
+            android:name="title"
+            android:defaultValue=""
+            app:argType="string"
+            />
+        <argument
+            android:name="content"
+            android:defaultValue=""
+            app:argType="string"
+            />
+    </fragment>
+
+    <dialog
+        android:id="@+id/dialog_sort"
+        android:name="com.maltaisn.notes.ui.sort.SortDialog"
+        />
+
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="com.maltaisn.notes.ui.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings"
+        >
+        <action
+            android:id="@+id/action_about_libraries"
+            app:destination="@id/about_libraries"
+            />
+        <action
+            android:id="@+id/action_nested_settings"
+            app:destination="@id/fragment_settings_nested"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_settings_nested"
+        android:name="com.maltaisn.notes.ui.settings.NestedSettingsFragment"
+        tools:layout="@layout/fragment_settings"
+        >
+        <argument
+            android:name="prefsXml"
+            app:argType="integer"
+            />
+        <argument
+            android:name="prefsTitle"
+            app:argType="integer"
+            />
+    </fragment>
+
+    <action
+        android:id="@+id/action_edit_note"
+        app:destination="@id/fragment_edit"
+        />
+
+    <navigation
+        android:id="@+id/nav_graph_reminder"
+        app:startDestination="@id/dialog_reminder"
+        >
+
+        <dialog
+            android:id="@+id/dialog_reminder"
+            android:name="com.maltaisn.notes.ui.reminder.ReminderDialog"
+            tools:layout="@layout/dialog_reminder"
+            >
+            <argument
+                android:name="noteIds"
+                app:argType="long[]"
+                />
+        </dialog>
+
+    </navigation>
+
+    <fragment
+        android:id="@+id/fragment_label"
+        android:name="com.maltaisn.notes.ui.labels.LabelFragment"
+        >
+        <argument
+            android:name="noteIds"
+            app:argType="long[]"
+            />
+        <action
+            android:id="@+id/action_label_to_label_edit"
+            app:destination="@id/dialog_label_edit"
+            />
+    </fragment>
+
+    <dialog
+        android:id="@+id/dialog_label_edit"
+        android:name="com.maltaisn.notes.ui.labels.LabelEditDialog"
+        >
+        <argument
+            android:name="labelId"
+            android:defaultValue="0L"
+            app:argType="long"
+            />
+    </dialog>
+
+    <action
+        android:id="@+id/action_reminder"
+        app:destination="@id/nav_graph_reminder"
+        >
+        <argument
+            android:name="noteIds"
+            app:argType="long[]"
+            />
+    </action>
+
+    <action
+        android:id="@+id/action_label"
+        app:destination="@id/fragment_label"
+        />
+
+</navigation>

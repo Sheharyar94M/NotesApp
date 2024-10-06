@@ -1,0 +1,17 @@
+Une autre application pour prendre des notes, comme il y en a eu des dizaines 
+de milliers d'autres avant.
+
+Cette application ne vise pas à innover, elle vise à créer une façon simple de 
+prendre des notes. Le Material Design est utilisé pour créer une interface
+intuitive et visuellement attrayante.
+
+Fonctionnalités:
+- Notes textuelles et listes à cocher.
+- Archive et corbeille.
+- Étiquettes sur les notes.
+- Rappels, y compris des rappels récurrents.
+- Recherche parmi vos notes.
+- Importation et exportation de base.
+- Thèmes clair et sombre.
+- Interface personnalisable.
+- Application open source.

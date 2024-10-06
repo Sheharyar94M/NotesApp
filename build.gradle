@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
+        classpath "com.github.triplet.gradle:play-publisher:$gppVersion"
+        classpath "com.github.breadmoirai:github-release:$githubReleasePluginVersion"
+        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:$aboutLibrariesVersion"
+    }
+}
+
+plugins {
+    id "base"
+    id "io.gitlab.arturbosch.detekt" version "1.18.1"
+}
+
+
+allprojects {
+    apply plugin: "io.gitlab.arturbosch.detekt"
+
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+project.ext {
+    kotlinFlags = [
+            "-opt-in=kotlin.ExperimentalStdlibApi",
+            "-opt-in=kotlin.time.ExperimentalTime",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=kotlinx.coroutines.FlowPreview",
+    ]
+}
+
+clean {
+    delete rootProject.buildDir
+}
+
+detekt {
+    failFast = true
+    buildUponDefaultConfig = true
+    parallel = true
+    autoCorrect = true
+    config = rootProject.files("config/detekt/detekt.yml")
+}
+
+tasks.detekt.jvmTarget = "1.8"

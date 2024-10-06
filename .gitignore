@@ -1,0 +1,15 @@
+dev/
+
+# Publishing
+/app/publishing.gradle
+
+# Android Studio
+local.properties
+*.iml
+.idea
+.gradle
+build/
+
+# OS files
+Thumbs.db
+.DS_Store

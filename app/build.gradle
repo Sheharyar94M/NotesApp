@@ -1,0 +1,203 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "org.jetbrains.kotlin.plugin.allopen"
+    id "androidx.navigation.safeargs.kotlin"
+    id "com.github.triplet.play"
+    id "com.github.breadmoirai.github-release"
+    id "com.mikepenz.aboutlibraries.plugin"
+    id "kotlin-parcelize"
+    id "kotlin-kapt"
+}
+
+android {
+    namespace "com.maltaisn.notes"
+
+    defaultConfig {
+        applicationId "com.maltaisn.notes"
+        minSdkVersion 21
+        compileSdk 34
+        buildToolsVersion = "34.0.0"
+        targetSdkVersion 34
+        versionCode 10504
+        versionName "1.5.4"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                // See https://developer.android.com/training/data-storage/room/migrating-db-versions
+                compilerArgumentProviders(new RoomSchemaArgProvider(new File(projectDir, "schemas")))
+            }
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+
+    sourceSets {
+        // This just add "kotlin" folder to source sets since the default is "java".
+        main {
+            java.srcDirs += "src/main/kotlin"
+        }
+        debug {
+            java.srcDirs += "src/debug/kotlin"
+        }
+        release {
+            java.srcDirs += "src/release/kotlin"
+        }
+
+        // Adds exported schema location as test app assets.
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
+    signingConfigs {
+        release {
+            if (project.hasProperty("releaseKeyStoreFile")) {
+                storeFile file(releaseKeyStoreFile)
+                storePassword releaseKeyStorePassword
+                keyAlias releaseKeyStoreKey
+                keyPassword releaseKeyStoreKeyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+
+            // enable debug features only if not taking screenshots
+            // androidTest can seemingly only be run in debug mode, hence why it's needed.
+            def takingScreenshots = System.getenv("taking_screenshots")
+            buildConfigField "boolean", "ENABLE_DEBUG_FEATURES",
+                    takingScreenshots == null ? "true" : (!takingScreenshots.toBoolean()).toString()
+        }
+        release {
+            // Using legacy package name 'com.maltaisn.notes.sync' which was used at the time where
+            // there was a sync flavor. Package can't be changed on Play Store so it was kept.
+            applicationIdSuffix ".sync"
+
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "ENABLE_DEBUG_FEATURES", "false"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += project.kotlinFlags
+        freeCompilerArgs += [
+                "-opt-in=kotlinx.serialization.ExperimentalSerializationApi",
+        ]
+    }
+
+    packagingOptions {
+        // see https://stackoverflow.com/questions/44342455
+        resources.excludes.add("META-INF/*")
+    }
+}
+
+dependencies {
+    // App dependencies
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.preference:preference-ktx:$preferenceVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "com.maltaisn:recurpicker:$recurpickerVersion"
+    implementation "com.mikepenz:aboutlibraries:$aboutLibrariesVersion"
+    implementation "com.mikepenz:aboutlibraries-core:$aboutLibrariesVersion"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    // Architecture components
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion"
+
+    // Navigation component
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+
+    // Debug
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    debugImplementation "com.github.YarikSOffice.Venom:venom:$venomVersion"
+    releaseImplementation "com.github.YarikSOffice.Venom:venom-no-op:$venomVersion"
+
+    // NOTE: dependencies for 'test' and 'androidTest' source sets include several
+    // dependencies declared as `api` in sharedTest/build.gradle.
+
+    // Dependencies for local unit tests
+    testImplementation project(":sharedTest")
+
+    // Dependencies for android tests
+    androidTestImplementation project(":sharedTest")
+    androidTestImplementation "androidx.test:runner:$androidxTestRunnerVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+    // For screenshots
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+}
+
+tasks.named("build") {
+    // don't test, don't lint, don't run detekt for build task.
+    setDependsOn(getDependsOn().findAll { it != "check" })
+}
+
+allOpen {
+    annotation "com.maltaisn.notes.OpenClass"
+}
+
+play {
+    serviceAccountCredentials = file("fake-key.json")
+}
+if (file("publishing.gradle").exists()) {
+    apply from: "publishing.gradle"
+}
+
+tasks.register("takeScreenshots", Exec) {
+    commandLine "./screenshots.sh"
+}
+
+class RoomSchemaArgProvider implements CommandLineArgumentProvider {
+
+    @InputDirectory
+    @PathSensitive(PathSensitivity.RELATIVE)
+    File schemaDir
+
+    RoomSchemaArgProvider(File schemaDir) {
+        this.schemaDir = schemaDir
+    }
+
+    @Override
+    Iterable<String> asArguments() {
+        // Note: If you're using KSP, you should change the line below to return
+        // ["room.schemaLocation=${schemaDir.path}"]
+        return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
+    }
+}

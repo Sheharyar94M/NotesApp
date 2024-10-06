@@ -1,0 +1,4 @@
+- Délai d'auto-supression configurable pour la corbeille.
+- Correction d'un bug avec les rappels sur Android 14.
+- Ajout d'une traduction en japonais.
+- Autres corrections mineures.
