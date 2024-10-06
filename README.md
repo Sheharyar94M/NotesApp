@@ -1,10 +1,6 @@
-# Another notes app
+# Notes app
 
 ![App icon](app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png)
-
-*The app is not actively developed since I have deviated from Android development in recent years.
-I'll fix critical bugs, but features may not be implemented before a very long time, if ever. 
-Expect one release per year. I will accept and review pull requests though.*
 
 This is a simple Android app for taking notes, like there have been tens of thousands before.
 The app has Material UI, was built following MVVM architecture, uses Dagger and some Jetpack
@@ -42,10 +38,6 @@ Contributions are welcome, especially translations (see [`TRANSLATING.md`][trans
 - All changes should be committed the `dev` branch, not `master`.
 - Make sure to follow existing code style (see `config/intellij-codestyle.xml` file).
 
-### License & credits
-- All code is licensed under Apache License 2.0.
-- Icons were mostly found at [Material Design Icons][mdi-icons], license can be found
-[here][mdi-icons-license].
 - Thanks to the following contributors for translations:
     - Arabic: @afmbsr
     - Chinese: @Nriver
@@ -59,8 +51,3 @@ Contributions are welcome, especially translations (see [`TRANSLATING.md`][trans
     - Spanish: Juan Carlos Vallejo, CyanWolf
     - Turkish: language_is_alive
     - Ukrainian: Andrij Mizyk
-
-[changelog]: CHANGELOG.md
-[translating]: TRANSLATING.md
-[mdi-icons]: https://materialdesignicons.com
-[mdi-icons-license]: https://github.com/Templarian/MaterialDesign#license
